@@ -1,0 +1,61 @@
+/**
+ * Système de connection / inscription
+ *
+ *  Si le nom d'utilisateur est correct, on renvoie une message disant que l'utilisateur existe
+ *   1.) le client envoie { type: 'auth:checkUser', payload: { username: 'toto' }}
+ *   2.) le serveur renvoie { type: 'auth:checkUser', username: 'toto', exists: true }
+ *   3.) Si l'utilisateur n'existe pas, le client doit demander a l'utilisateur de créer un compte ou
+ *      de réessayer avec un autre nom d'utilisateur
+ *   4.) le client envoie { type: 'auth:createUser', username: 'toto', password: 'toto' } au serveur
+ *   5.) le serveur renvoie { type: 'auth:welcome', payload: { username: 'toto' }}
+ *
+ *     Le client envoie un message de bienvenue avec le nom d'utilisateur et affiche la liste des
+ *      commandes disponibles dans le contexte actuel:
+ *
+ *   TODO: main in the middle security
+ *
+ */
+
+/**
+ *
+ * Contexte: Accueil
+ *
+ * 1.) on affiche une liste de commandes non exhaustible
+ *		- friend list
+		- last room
+		- create room
+		- last dm
+		
+ * 		
+	On friend list 
+		- dm + (name_friend)
+		- delete + (name_friend)
+		- add to room + (name_friend)
+
+	On room
+		- add friend 
+		- exit room
+	
+	on dm 
+		- exit dm
+		
+ * 
+ * 
+ */ 
+
+const data = {
+	type: 'auth:login',
+	payload: {
+		username: '',
+		password: '',
+	},
+};
+
+// cote server
+/***
+ *
+ *
+ *
+ *
+ *
+ */

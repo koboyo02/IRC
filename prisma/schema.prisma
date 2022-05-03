@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider         = "prisma-client-js"
+    previewFreatures = ["mongodb"]
+}
+
+model User {
+    id          String    @id @default(auto()) @map("_id") @db.ObjectId
+    name        String    @unique
+    role        Role      @default(USER)
+    createdAt   DateTime  @default(now())
+    lastLoginAt DateTime  @default(now())
+    Message     Message[]
+    friend      Friend?
+    friends     Friend[]  @relation(name: "friends")
+}
+
+model Channel {
+    id            String      @id @default(auto()) @map("_id") @db.ObjectId
+    name          String      @unique
+    type          ChannelType @default(PUBLIC)
+    createdAt     DateTime
+    lastMessageAt DateTime
+    Message       Message[]
+}
+
+model Friend {
+    id       String @id @default(auto()) @map("_id") @db.ObjectId
+    userId   Int    @unique
+    friendId Int
+    user     User   @relation(fields: [userId], references: [id])
+    friend   User   @relation(fields: [friendId], references: [id], name: "friends")
+}
+
+model Message {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    text      String
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  String   @db.ObjectId
+    channel   Channel  @relation(fields: [channelId], references: [id])
+    channelId String   @db.ObjectId
+    createdAt DateTime @default(now())
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+enum ChannelType {
+    PUBLIC
+    PRIVATE
+}

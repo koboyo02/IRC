@@ -1,0 +1,25 @@
+channels:
+    - id 
+    - name
+    - permissions
+
+messages:
+    - id 
+    - content
+    - type (message, command)
+    - author
+    - channel
+    - created_at
+
+friends:
+    - user_id
+    - friend_id
+
+users:
+    - id
+    - name
+    - is_online
+    - created_at
+    - role
+    - last_logged_at
+

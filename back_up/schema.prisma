@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "Mmongodb"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id          Int      @id @default(autoincrement())
+    name        String   @unique
+    role        String   @default("user")
+    createdAt   DateTime
+    lastLoginAt DateTime
+}
+
+model Channel {
+    id            Int      @id @default(autoincrement())
+    name          String   @unique
+    permissions   String   @default("{}")
+    createdAt     DateTime
+    lastMessageAt DateTime
+}
+
+model Message {
+    id        Int      @id @default(autoincrement())
+    text      String
+    author    User     @relation(fields: [authorId])
+    authorId  Int      @column(name: "author_id")
+    channel   Channel  @relation(fields: [channelId])
+    channelId Int      @column(name: "channel_id")
+    createdAt DateTime
+}
